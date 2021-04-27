@@ -1,0 +1,91 @@
+
+
+
+in c# all possible int/float are int/float
+
+star = ["name", "owner", [station], int:fleet, "anomaly", (position)]
+
+station = ["power", "level", [modules]]
+
+fleet = ["power"]
+moving_fleets = ["power", "destination (star number)", (position), "owner"]
+
+save = [[galaxy],[moving fleets]]
+
+player_list = [player, player, player, ...]
+player = ["name", "hexcolor", "income", "ressource"]
+client = name as a key, return string[] = ["hexcolor", income, ressource]
+
+
+
+
+
+t.py :
+load saves/create new save : start()
+add player : OnPlayerAdd(name, (optional) system)
+CreateMovingFleet : CreateMovingFleet(origin, destination, power)
+
+
+
+
+
+
+
+
+
+
+network protocol:
+
+REQ:  request data from server
+      GAMEMAP:A:B  request gamelist from system n°A to n°B
+      PLAYERLIST  request player list
+
+ACT: send an action performed by the client
+      CREATEFLEET:A:B:Power  creates a fleet with origin A, destination B of power Power
+
+PLAYERNAME:string :player name is string
+
+
+
+
+
+stuff to do:
+
+server side
+  currency simulation
+  login/new player addition
+
+client
+  camera zoom
+
+
+network
+  send moving fleets
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#
