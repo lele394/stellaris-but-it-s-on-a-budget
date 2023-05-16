@@ -1,0 +1,24 @@
+=========== help ============
+
+os.something => execute os.system("something")
+quit => do you really need help here?
+game. ╦> save :saves the current game #works
+      ║
+      ╠> system. ╦> changeowner system newowner :set system(number) owner to
+      ║          ║  newowner    #works
+      ║          ╠> setfleetpower system power :set system(number) fleet power
+      ║          ║  to power  #works
+      ║          ╚> setname system newname :set system(number) name to
+      ║             newname(no space) #works
+      ║
+      ╠> fleet. ╦> changeowner fleet newowner :set fleet(number) owner to
+      ║         ║  newowner    #not impl
+      ║         ╠> createfleet origin destination power :creates fleet in origin
+      ║         ║  going to destination of power power  #not sure it works
+      ║         ╚> setfleetpower fleet power :set fleet(number) power to power
+      ║            #not impl
+      ║
+      ╚> sim. ╦> deltaTime :set simulation speed #not impl
+              ╚> update : advance simulation of one tick
+
+no meaning, just here for convenience : ╦╠║╚╗
