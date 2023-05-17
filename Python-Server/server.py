@@ -17,6 +17,7 @@ PORT = 65432        # Port to listen on (non-privileged ports are > 1023)
 AutoSaveTime = 3600  #3600 is default, do not lower too much, might cause issue with the server
 
 #GAME SIM
+ManualTick = False #set to true if you wish to deactivate auto tick update (you'll need to do a game.sim.tick to make the game progress)
 UpdateTime = 10  #Update sim of 1 tick every x seconds, keep this one high, lower value may add unnecessary stress on the server (client update requests timed with UpdateTime)
 DeltaTime = 0.2  #Basically is "game speed", keep it low or do not touch if you don't know what you're doing, too high might lead to fleets jumping into systems from far away
 Console = False  #change to True to have console print after every simulation ticks
@@ -223,7 +224,7 @@ ConsolePrint("Starting server thread...", "s")
 start_new_thread(ServerThread, (1,))
 ConsolePrint("Server thread started!", "s")
 start_new_thread(thread_AutoSave, (AutoSaveTime,))
-#start_new_thread(thread_UpdateSim, (UpdateTime, Console,))
+if ManualTick == False: start_new_thread(thread_UpdateSim, (UpdateTime, Console,))
 Home()
 
 while True:
@@ -245,6 +246,42 @@ while True:
 
     elif "game." in entry: #executes game mechanics command
         entry = entry[5:]
+
+        if "addplayer" in entry:
+            entry = entry[10:]
+            entry = entry.split(" ")
+            
+            player_exists = False
+            for item in player_list:
+                player_exists = item[0] == entry[0]
+
+            if player_exists:#check if users doesn't already exists
+                ConsolePrint(f'player {entry[0]} already exists, please use another username, or quit and edit player-save.json before restarting', "s")
+
+            else:
+                if len(entry) == 2: #if only a name and color are provided
+                    try:
+                        t.OnPlayerAdd(galaxy, entry[0])
+                        player_list.append( [entry[0], entry[1], 0.0, 0.0] ) #registers player
+                        ConsolePrint(f'Added player {entry[0]}, please know that connected player need to restart their client to see the new player.', "s")
+                    except:
+                        ConsolePrint(f'There has been an error while trying to add player {entry[0]}', "s")
+                elif entry[0] != "": #if there's more than just a name and color | donno tf the check does tho
+                    try:
+                        t.OnPlayerAdd(galaxy, entry[0], int(entry[2]))
+                        player_list.append( [entry[0], entry[1], 0.0, 0.0] ) #registers player
+                        ConsolePrint(f'Added player {entry[0]}, please know that connected player need to restart their client to see the new player.', "s")
+                    except:
+                        ConsolePrint(f'There has been an error while trying to add player {entry[0]} in system {entry[1]}, is there an issue with formatting or a space in the name?', "s")
+                
+
+                else:
+                    ConsolePrint("Error in formatting, did you have a space at the end of the command? try without one.", "s")
+
+
+
+
+
         if entry == "save":
             print("Saving...")
             t.SaveGame(galaxy, moving_fleets, player_list)

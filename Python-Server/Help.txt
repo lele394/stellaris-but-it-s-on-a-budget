@@ -3,6 +3,10 @@
 os.something => execute os.system("something")
 quit => do you really need help here?
 game. ╦> save :saves the current game #works
+      ╠> addplayer playername color system : add player playername with color color(ie : #45F2E3)
+      ║                                      to the player list, if a system number is given (optional), 
+      ║                                      assign that system, otherwise, gives a random not owned system. 
+      ║                                      playername shall have no spaces #works
       ║
       ╠> system. ╦> changeowner system newowner :set system(number) owner to
       ║          ║  newowner    #works

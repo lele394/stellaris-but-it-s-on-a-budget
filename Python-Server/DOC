@@ -69,10 +69,10 @@ client
 
 core:
 server
-  login/new player addition
+  login/new player addition ( game.addplayer name  , if no pswd attached to player,  )
 
 client
-  game tick client update
+  game tick client update (send text to serv)
 
 
 
